@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
     //Manejear datos fuera de parámetro
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValid(MethodArgumentNotValidException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos inválidos "+ ex.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos inválidos: "+ ex.getMessage());
     }
 
     //Maneja cualquier excepción

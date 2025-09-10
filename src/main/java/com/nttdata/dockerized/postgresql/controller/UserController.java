@@ -32,7 +32,7 @@ public class UserController {
     //private final PedidoMapper pedidoMapper;
 
     @PostMapping
-    public UserSaveResponseDto save(@RequestBody UserSaveRequestDto userSaveRequestDto) {
+    public UserSaveResponseDto save(@RequestBody @Valid UserSaveRequestDto userSaveRequestDto) {
         User user = userMapper.toEntity(userSaveRequestDto);
         User savedUser = userService.save(user);
         return userMapper.toUserSaveResponseDto(savedUser);
@@ -52,7 +52,7 @@ public class UserController {
 
     @PutMapping("/{id}")
     public UserDto updateUser(@PathVariable Long id,
-                                              @RequestBody UserUpdateRequestDto userUpdateRequestDto) {
+                                              @RequestBody @Valid UserUpdateRequestDto userUpdateRequestDto) {
         User userToUpdate = userMapper.toEntity(userUpdateRequestDto);
         User updatedUser = userService.updateById(id, userToUpdate);
         return userMapper.map(updatedUser);

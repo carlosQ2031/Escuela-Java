@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User findById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new UsuarioExeption("Usuario no encontrado", 404));
+                .orElseThrow(() -> new UsuarioExeption("Usuario no encontrado: ", 404));
     }
 
 
@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateById(Long id, User user) {
-        if(id == null || user == null) throw new IllegalArgumentException("El id y el user no pueden ser nulos");
+        if(id == null || user == null) throw new IllegalArgumentException("El id y el user no pueden ser nulos: ");
         User userEncontrado =findById(id);
 
         userEncontrado.setName(user.getName());
