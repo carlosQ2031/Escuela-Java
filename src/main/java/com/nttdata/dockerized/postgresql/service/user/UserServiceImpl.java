@@ -1,5 +1,6 @@
 package com.nttdata.dockerized.postgresql.service.user;
 
+import com.nttdata.dockerized.postgresql.excepcionPer.UsuarioExeption;
 import com.nttdata.dockerized.postgresql.model.user.entity.User;
 import com.nttdata.dockerized.postgresql.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -26,8 +27,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(Long id) {
-        if(id == null) throw new IllegalArgumentException("El id no puede ser nulo");
-        return userRepository.findById(id).orElseThrow(() -> new IllegalStateException("User no encontrado"));
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UsuarioExeption("Usuario no encontrado", 404));
     }
 
 

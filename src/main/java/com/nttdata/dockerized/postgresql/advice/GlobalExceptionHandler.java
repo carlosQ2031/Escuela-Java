@@ -1,5 +1,6 @@
 package com.nttdata.dockerized.postgresql.advice;
 
+import com.nttdata.dockerized.postgresql.excepcionPer.UsuarioExeption;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,13 +24,20 @@ public class GlobalExceptionHandler {
     //Manejear datos fuera de parámetro
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<String> handleMethodArgumentNotValid(MethodArgumentNotValidException ex){
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos inválidos");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Datos inválidos "+ ex.getMessage());
     }
 
     //Maneja cualquier excepción
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleInternalServerError(Exception ex){
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno" + ex.getMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error interno: " + ex.getMessage());
+    }
+
+    //Excepcion personalizada
+    @ExceptionHandler(UsuarioExeption.class)
+    public ResponseEntity<String> handleUsuarioException(UsuarioExeption ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body("Error: " + ex.getMessage() + " - Código: " + ex.getCodigoDeError());
     }
 
 }

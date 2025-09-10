@@ -14,5 +14,5 @@ public class UserDto {
     private String email;
     private LocalDateTime fechaRegistro;
     private Boolean active;
-    private List<PedidoDto> pedidos;
+    //private List<PedidoDto> pedidos;
 }
