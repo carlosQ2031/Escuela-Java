@@ -1,22 +1,15 @@
-package org.example.pediosms.service;
+package org.example.pediosms.service.pedido;
 
-import org.example.pediosms.model.Pedido;
+import org.example.pediosms.model.pedido.Pedido;
 
 import java.util.List;
 
 public interface PedidoService {
-    //Crear
     Pedido save(Pedido pedido);
-
-    //Obtener
     List<Pedido> listAll();
-
-    //ObtenerPorId
     Pedido findById(Long id);
-
-    //Actualizar
     Pedido updateById(Long id, Pedido pedido);
-
-    //Eliminar
     void deleteById(Long id);
+    Pedido updatePatch(Long id, Pedido pedidoParcial);
+
 }

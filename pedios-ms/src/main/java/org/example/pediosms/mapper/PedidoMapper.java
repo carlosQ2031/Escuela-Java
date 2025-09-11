@@ -1,10 +1,10 @@
 package org.example.pediosms.mapper;
 
 
-import org.example.pediosms.model.Pedido;
-import org.example.pediosms.model.PedidoRequestDto;
-import org.example.pediosms.model.PedidoResponseDto;
-import org.example.pediosms.model.PedidoUpdateDto;
+import org.example.pediosms.model.pedido.Pedido;
+import org.example.pediosms.model.pedido.PedidoRequestDto;
+import org.example.pediosms.model.pedido.PedidoResponseDto;
+import org.example.pediosms.model.pedido.PedidoUpdateDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -18,19 +18,19 @@ public interface PedidoMapper {
 
     PedidoResponseDto toResponseDto(Pedido pedido);
 
-    Pedido toEntity(PedidoRequestDto pedidoRequestDto);
+    default Pedido toEntity(PedidoRequestDto dto) {
+        if(dto == null) return null;
+        Pedido pedido = new Pedido();
+        pedido.setCliente(dto.getCliente());
+        pedido.setEstado(true); // por defecto activo
+        return pedido;
+    }
 
     Pedido toEntity(PedidoUpdateDto pedidoUpdateDto);
 
 
     void updatePedidoFromDto(PedidoRequestDto dto, @MappingTarget Pedido pedido);
 
-    default Pedido toEntity(PedidoRequestDto dto, Boolean estadoPorDefecto) {
-        Pedido pedido = new Pedido();
-        updatePedidoFromDto(dto, pedido);
-        if(pedido.getEstado() == null) {
-            pedido.setEstado(estadoPorDefecto != null ? estadoPorDefecto : true);
-        }
-        return pedido;
-    }
+
+
 }
