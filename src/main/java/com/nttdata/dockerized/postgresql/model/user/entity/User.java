@@ -42,7 +42,7 @@ public class User {
     @JsonIgnore
     private Boolean active= true;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
-    private List<Pedido> pedidos;
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonManagedReference
+//    private List<Pedido> pedidos;
 }
