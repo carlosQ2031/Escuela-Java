@@ -3,6 +3,8 @@ package org.example.compositionpedido.controller;
 import org.example.compositionpedido.dto.PedidoCompositionDto;
 import org.example.compositionpedido.dto.PedidoRequestDto;
 import org.example.compositionpedido.service.PedidoCompositionService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +20,12 @@ public class CompositionPedidoController {
     }
 
     @PostMapping
-    public PedidoCompositionDto crearOrder(@RequestBody PedidoRequestDto pedidoRequest) {
-        return compositionService.crearPedido(pedidoRequest);
+    public ResponseEntity<PedidoCompositionDto> crearOrder(@RequestBody PedidoRequestDto pedidoRequest) {
+        PedidoCompositionDto pedido = compositionService.crearPedido(pedidoRequest);
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(pedido);
     }
 
-    @GetMapping("/pedidos")
-    public List<PedidoCompositionDto> obtenerTodosPedidos() {
-        return compositionService.obtenerTodosPedidos();
-    }
+
 }

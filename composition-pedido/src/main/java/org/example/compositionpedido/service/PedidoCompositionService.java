@@ -1,6 +1,5 @@
 package org.example.compositionpedido.service;
 
-import lombok.AllArgsConstructor;
 import org.example.compositionpedido.dto.*;
 import org.example.compositionpedido.feign.PedidoClient;
 import org.example.compositionpedido.feign.ProductoClient;
@@ -50,35 +49,5 @@ public class PedidoCompositionService {
 
     }
 
-    public List<PedidoCompositionDto> obtenerTodosPedidos() {
-        // Llamar al microservicio de pedidos para obtener todos
-        List<PedidoResponseDto> pedidos = pedidoClient.obtenerPedidos();
-
-        return pedidos.stream().map(pedido -> {
-            List<ProductoDetalleDto> productosDetalle = pedido.getDetalles().stream().map(det -> {
-                ProductoDto prod = productoClient.obtenerProducto(det.getProductoId());
-                Double subtotal = prod.getPrecio() * det.getCantidad();
-                ProductoDetalleDto detalle = new ProductoDetalleDto();
-                detalle.setProductoId(prod.getId());
-                detalle.setNombre(prod.getNombre());
-                detalle.setCantidad(det.getCantidad());
-                detalle.setPrecioUnitario(prod.getPrecio());
-                detalle.setSubtotal(subtotal);
-                return detalle;
-            }).toList();
-
-            Double total = productosDetalle.stream()
-                    .mapToDouble(ProductoDetalleDto::getSubtotal)
-                    .sum();
-
-            PedidoCompositionDto compositionDto = new PedidoCompositionDto();
-            compositionDto.setPedidoId(pedido.getId());
-            compositionDto.setCliente(pedido.getCliente());
-            compositionDto.setProductos(productosDetalle);
-            compositionDto.setTotal(total);
-
-            return compositionDto;
-        }).toList();
-    }
 
 }
