@@ -23,7 +23,6 @@ public class PedidoServiceImpl implements PedidoService {
         return pedidoRepository.save(pedido);
     }
 
-
     @Override
     public List<Pedido> listAll() {
         return pedidoRepository.findAll();
@@ -38,7 +37,11 @@ public class PedidoServiceImpl implements PedidoService {
     @Override
     public Pedido updateById(Long id, Pedido pedido) {
         Pedido existente = findById(id);
+        System.out.println(pedido.getCliente());
+        System.out.println(pedido.getEstado());
+
         existente.setCliente(pedido.getCliente());
+        existente.setEstado(pedido.getEstado());
         return pedidoRepository.save(existente);
     }
 
@@ -47,6 +50,7 @@ public class PedidoServiceImpl implements PedidoService {
         Pedido existente = findById(id);
         pedidoRepository.delete(existente);
     }
+
     @Override
     public Pedido updatePatch(Long id, Pedido pedidoParcial) {
         Pedido pedidoExistente = findById(id);

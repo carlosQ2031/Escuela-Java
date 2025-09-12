@@ -13,24 +13,22 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface PedidoMapper {
 
-
+    //List<PedidoResponseDto> <- List<Pedido>
     List<PedidoResponseDto>  toListResponseDto(List<Pedido> pedidos);
 
+    //PedidoResponseDto <- Pedido
     PedidoResponseDto toResponseDto(Pedido pedido);
 
-    default Pedido toEntity(PedidoRequestDto dto) {
-        if(dto == null) return null;
+    //Pedido <- PedidoRequestDto
+    default Pedido toEntity(PedidoRequestDto pedidoRequestDto) {
+        if(pedidoRequestDto == null) return null;
         Pedido pedido = new Pedido();
-        pedido.setCliente(dto.getCliente());
-        pedido.setEstado(true); // por defecto activo
+        pedido.setCliente(pedidoRequestDto.getCliente());
         return pedido;
     }
 
+    //Pedido <- PedidoUpdateDto
     Pedido toEntity(PedidoUpdateDto pedidoUpdateDto);
-
-
-    void updatePedidoFromDto(PedidoRequestDto dto, @MappingTarget Pedido pedido);
-
 
 
 }
