@@ -10,6 +10,8 @@ import lombok.Getter;
 import lombok.Setter;
 import org.example.productoms.model.category.Categoria;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Entity
@@ -24,7 +26,7 @@ public class Producto {
     private String nombre;
 
     @NotNull(message = "El precio es obligatorio")
-    private Double precio;
+    private BigDecimal precio;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="categoria_id", nullable = true)
