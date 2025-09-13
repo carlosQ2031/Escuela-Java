@@ -27,5 +27,11 @@ public class CompositionPedidoController {
                 .body(pedido);
     }
 
+    @GetMapping
+    public ResponseEntity<List<PedidoCompositionDto>> obtenerPedidos() {
+        List<PedidoCompositionDto> pedidos = compositionService.obtenerTodosPedidos();
+        return ResponseEntity.ok(pedidos);
+    }
+
 
 }

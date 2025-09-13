@@ -32,4 +32,6 @@ public interface ProductoMapper {
         updateUserFromDto(dto, producto);
         return producto;
     }
+
+
 }
